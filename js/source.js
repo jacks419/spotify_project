@@ -38,66 +38,7 @@ async function load(){
     let albumID4 = localStorage.getItem("album_id_4");
 
 
-// artist fetch
-const artistResponse = await fetch(`https://api.spotify.com/v1/artists/${artistID}`, {
-  headers: { Authorization: `Bearer ${accessToken}` } 
-});
 
-const artist = await artistResponse.json();
-  document.querySelector("#artist-name").textContent = artist.name;
-  document.querySelector(".artist-image img").src = artist.images[0].url;
-
-
-//  track 1
-const trackElements = document.querySelectorAll(".track");
-
-const t1 = await (await fetch (`https://api.spotify.com/v1/tracks/${trackID1}`, {
-  headers: { Authorization: `Bearer ${accessToken}` } 
-})).json() ;
-  trackElements[0].querySelector(".track-title").textContent = t1.name;
-  trackElements[0].querySelector("img").src = t1.album.images[0].url;
-  trackElements[0].querySelector(".track-album").textContent = t1.album.name;
-  trackElements[0].querySelector(".track-duration").textContent = convertMsToMinSec(t1.duration_ms);
-
-//  track 2
-const t2 = await (await fetch(`https://api.spotify.com/v1/tracks/${trackID2}`, {
-  headers: { Authorization: `Bearer ${accessToken}` } 
-})).json() ;
-  trackElements[1].querySelector(".track-title").textContent = t2.name;
-  trackElements[1].querySelector("img").src = t2.album.images[0].url;
-  trackElements[1].querySelector(".track-album").textContent = t2.album.name;
-  trackElements[1].querySelector(".track-duration").textContent = convertMsToMinSec(t2.duration_ms);
-
-// track 3
-const t3 = await (await fetch(`https://api.spotify.com/v1/tracks/${trackID3}`, {
-  headers: { Authorization: `Bearer ${accessToken}` } 
-})).json() ;
-  trackElements[2].querySelector(".track-title").textContent = t3.name;
-  trackElements[2].querySelector("img").src = t3.album.images[0].url;
-  trackElements[2].querySelector(".track-album").textContent = t3.album.name;
-  trackElements[2].querySelector(".track-duration").textContent = convertMsToMinSec(t3.duration_ms);
-
-  // albums
-  const albumCards = document.querySelectorAll(".album-card");
-
-  async function loadAlbum(albumID, card) {
-    const response = await fetch(
-      `https://api.spotify.com/v1/albums/${albumID}`,
-      { headers: { Authorization: `Bearer ${accessToken}` } }
-    );
-
-    const album = await response.json();
-
-    card.querySelector("img").src = album.images[0].url;
-    card.querySelector("h3").textContent = album.name;
-    card.querySelector("p").textContent =
-      `${album.release_date.slice(0, 4)} • ${album.album_type}`;
-  }
-
-  await loadAlbum(albumID1, albumCards[0]);
-  await loadAlbum(albumID2, albumCards[1]);
-  await loadAlbum(albumID3, albumCards[2]);
-  await loadAlbum(albumID4, albumCards[3]);
 
 
 
