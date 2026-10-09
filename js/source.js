@@ -102,7 +102,36 @@ const t3 = await (await fetch(`https://api.spotify.com/v1/tracks/${trackID3}`, {
 
   trackElements[2].querySelector(".track-duration").textContent = convertMsToMinSec(t3.duration_ms); 
 
-    
+
+  // albums 
+const albumCards = document.querySelectorAll(".album-card"); 
+
+async function loadAlbum(albumID, card) { 
+  const response = await fetch( `https://api.spotify.com/v1/albums/${albumID}`, 
+
+    { headers: { Authorization: `Bearer ${accessToken}` } } 
+
+    ); 
+
+  const album = await response.json(); 
+
+  card.querySelector("img").src = album.images[0].url; 
+  card.querySelector("h3").textContent = album.name; 
+  card.querySelector("p").textContent = 
+
+    `${album.release_date.slice(0, 4)} • ${album.album_type}`; 
+
+  } 
+
+ 
+
+await loadAlbum(albumID1, albumCards[0]); 
+await loadAlbum(albumID2, albumCards[1]); 
+
+await loadAlbum(albumID3, albumCards[2]); 
+
+await loadAlbum(albumID4, albumCards[3]);
+  
 }
 load();
 
