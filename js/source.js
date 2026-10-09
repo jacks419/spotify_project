@@ -38,7 +38,19 @@ async function load(){
     let albumID4 = localStorage.getItem("album_id_4");
 
 
+// artist fetch 
 
+const artistResponse = await fetch(`https://api.spotify.com/v1/artists/${artistID}`, { 
+
+  headers: { Authorization: `Bearer ${accessToken}` }  
+
+}); 
+
+ const artist = await artistResponse.json(); 
+
+  document.querySelector("#artist-name").textContent = artist.name; 
+
+  document.querySelector(".artist-image img").src = artist.images[0].url; 
 
 
 
